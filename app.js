@@ -35,10 +35,20 @@ app.get("/api", async (req, res) => {
     let title = await page.title();
     // botão fecha modal
     await page.click("button.modal__dismiss");
+
     // pega conteúdo sobre
-    await page.waitForSelector(".core-section-container__content");
-    let elementSobre = await page.$(".core-section-container__content");
-    let sobre = await page.evaluate((el) => el.textContent, elementSobre);
+    // await page.waitForSelector(".core-section-container__content");
+    // let elementSobre = await page.$(".core-section-container__content");
+    // let sobre = await page.evaluate((el) => el.textContent, elementSobre);
+
+    // pega conteúdo sobre
+    const sobre = await page.evaluate(() => {
+      const span = document.querySelector(".core-section-container__content");
+      if (span) {
+        return span.textContent.trim();
+      }
+      return null;
+    });
 
     // pega conteúdo função
     const funcao = await page.evaluate(() => {
