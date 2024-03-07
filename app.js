@@ -13,7 +13,7 @@ app.get("/api", async (req, res) => {
       "--no-sandbox",
       "--single-process",
       "--no-zygote",
-      '--disable-features=site-per-process'
+      "--disable-features=site-per-process",
     ],
     executablePath:
       process.env.NODE_ENV === "production"
@@ -92,7 +92,6 @@ app.get("/api", async (req, res) => {
     res.json({ title, sobre, funcao, localizacao, experiencias });
   } catch (error) {
     console.error(error);
-    res.json({error});
     res.status(500).json({ error: error.message });
   } finally {
     await browser.close();
