@@ -29,7 +29,7 @@ app.get("/api", async (req, res) => {
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 800 });
-    await page.goto(parametro, { waitUntil: "networkidle2" });
+    await page.goto(parametro, { waitUntil: "networkidle2", timeout: 60000 }); // aumentando para 60 segundos (60000 milissegundos)
 
     // pega título
     let title = await page.title();
