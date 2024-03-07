@@ -8,13 +8,13 @@ const port = 3001;
 // Rota para fazer a chamada de API
 app.get("/api", async (req, res) => {
   const browser = await puppeteer.launch({
-    args: [
-      "--disable-setuid-sandbox",
-      "--no-sandbox",
-      "--single-process",
-      "--no-zygote",
-      "--disable-features=site-per-process",
-    ],
+    // args: [
+    //   "--disable-setuid-sandbox",
+    //   "--no-sandbox",
+    //   "--single-process",
+    //   "--no-zygote",
+    //   "--disable-features=site-per-process",
+    // ],
     executablePath:
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
