@@ -31,13 +31,30 @@ app.get("/api", async (req, res) => {
     await page.setViewport({ width: 1280, height: 800 });
     await page.goto(parametro, { waitUntil: "networkidle2", timeout: 60000 }); // aumentando para 60 segundos (60000 milissegundos)
 
-    // pega título
+    await page.click("button.main__sign-in-link");
+
+    // preencher o campo de e-mail
+    await page.type(
+      'input[name="session_key"]',
+      "backupgiovanafurlan@outlook.com"
+    );
+
+    // preencher o campo de senha
+    await page.type('input[name="session_password"]', "Fur0412*");
+
+    // clicar no botão de login
+    await page.click('button[aria-label="Sign in"]');
+
+    // aguardar um pouco para permitir que a página seja carregada completamente após o login
+    await page.waitForTimeout(5000); // Ajuste o tempo conforme necessário
+
+    // redirecionar para a página do perfil
+    await page.goto("https://www.linkedin.com/in/giovana-furlan/");
+
+    // pegar título
     let title = await page.title();
 
-    // botão fecha modal
-    await page.click("button.modal__dismiss");
-
-    // pega conteúdo sobre
+    // pegar conteúdo sobre
     const sobre = await page.evaluate(() => {
       const span = document.querySelector(".core-section-container__content");
       if (span) {
@@ -46,7 +63,7 @@ app.get("/api", async (req, res) => {
       return null;
     });
 
-    // pega conteúdo função
+    // pegar conteúdo função
     const funcao = await page.evaluate(() => {
       const span = document.querySelector(".top-card-layout__headline");
       if (span) {
@@ -55,7 +72,7 @@ app.get("/api", async (req, res) => {
       return null;
     });
 
-    // pega conteúdo localização
+    // pegar conteúdo localização
     const localizacao = await page.evaluate(() => {
       const span = document.querySelector(
         "div.not-first-middot span:first-child"
@@ -66,7 +83,7 @@ app.get("/api", async (req, res) => {
       return null;
     });
 
-    // pega conteúdo experiências
+    // pegar conteúdo experiências
     const experiencias = await page.evaluate(() => {
       const experienceItems = document.querySelectorAll(
         'section[data-section="experience"] .experience-item'
