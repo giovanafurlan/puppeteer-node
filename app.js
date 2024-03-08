@@ -32,21 +32,7 @@ app.get("/api", async (req, res) => {
     await page.setViewport({ width: 1280, height: 800 });
     await page.goto(parametro, { waitUntil: "networkidle2", timeout: 60000 }); // aumentando para 60 segundos (60000 milissegundos)
 
-    
-    // localizar o link pelo texto "Sign in"
-    const signInLink = await page.evaluate(() => {
-      const link = document.querySelector(
-        ".main__sign-in-link"
-      );
-      if (link) {
-        return link;
-      }
-      return null;
-    });
-    // const signInLink = await page.waitForSelector(".main__sign-in-link");
-
-    // clicar no link "Sign in"
-    await signInLink.click();
+    await page.click("a.main__sign-in-link");
 
     // preencher o campo de e-mail
     await page.type(
@@ -141,3 +127,5 @@ app.get("/api", async (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
+
