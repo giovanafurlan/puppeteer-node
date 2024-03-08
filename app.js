@@ -31,7 +31,11 @@ app.get("/api", async (req, res) => {
     await page.setViewport({ width: 1280, height: 800 });
     await page.goto(parametro, { waitUntil: "networkidle2", timeout: 60000 }); // aumentando para 60 segundos (60000 milissegundos)
 
-    await page.click("button.main__sign-in-link");
+    // localizar o link pelo texto "Sign in"
+    const signInLink = await page.$(".main__sign-in-link");
+
+    // clicar no link "Sign in"
+    await signInLink.click();
 
     // preencher o campo de e-mail
     await page.type(
