@@ -33,13 +33,9 @@ app.get("/api", async (req, res) => {
 
     // pega título
     let title = await page.title();
+
     // botão fecha modal
     await page.click("button.modal__dismiss");
-
-    // pega conteúdo sobre
-    // await page.waitForSelector(".core-section-container__content");
-    // let elementSobre = await page.$(".core-section-container__content");
-    // let sobre = await page.evaluate((el) => el.textContent, elementSobre);
 
     // pega conteúdo sobre
     const sobre = await page.evaluate(() => {
@@ -59,6 +55,7 @@ app.get("/api", async (req, res) => {
       return null;
     });
 
+    // pega conteúdo localização
     const localizacao = await page.evaluate(() => {
       const span = document.querySelector(
         "div.not-first-middot span:first-child"
@@ -69,6 +66,7 @@ app.get("/api", async (req, res) => {
       return null;
     });
 
+    // pega conteúdo experiências
     const experiencias = await page.evaluate(() => {
       const experienceItems = document.querySelectorAll(
         'section[data-section="experience"] .experience-item'
@@ -99,7 +97,7 @@ app.get("/api", async (req, res) => {
     });
 
     // Retornando a resposta como JSON
-    res.json({ title, sobre, funcao, localizacao, experiencias });
+    res.json({ title });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
