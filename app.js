@@ -16,10 +16,7 @@ app.get("/api", async (req, res) => {
       "--no-zygote",
       "--disable-features=site-per-process",
     ],
-    executablePath:
-      process.env.NODE_ENV === "production"
-        ? process.env.PUPPETEER_EXECUTABLE_PATH
-        : puppeteer.executablePath(),
+    executablePath: puppeteer.executablePath(),
   });
   try {
     const parametro = req.query.parametro;
